@@ -42,6 +42,14 @@ where Value<10
 select Count(*) as 'People Entering',Measure from [U.S Crossing border].[dbo].[Border_Crossing_Entry_Data]
 group by Measure
 
+--total people crossing in each year 
+SELECT distinct State,Year,SUM(Cast(Value as BIGINT))over(partition by State order by Year desc) as 'Cummulative_Year_Value'
+
+FROM [U.S Crossing border].[dbo].[Border_Crossing_Entry_Data_Latest]
+where Year in('2000','2024')
+group by State,Year,Value
+
+
 
 
   
